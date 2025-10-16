@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart | GHOST-X</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;font-family:'Roboto',sans-serif;background:#f9f9f9;color:#111;}
+.container{max-width:800px;margin:2rem auto;padding:2rem;background:#fff;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+h1{text-align:center;font-family:'Oswald',sans-serif;margin-bottom:1rem;}
+.cart-item{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;border-bottom:1px solid #eee;padding-bottom:1rem;}
+.cart-item img{width:80px;height:80px;object-fit:cover;border-radius:5px;}
+.cart-info{flex:1;}
+.cart-info p{margin:0.2rem 0;}
+.cart-info select,input[type="number"]{padding:0.3rem;border-radius:5px;border:1px solid #ccc;width:100%;margin-top:0.2rem;}
+button{background:#000;color:#fff;padding:0.6rem 1rem;border:none;cursor:pointer;border-radius:5px;margin-top:0.5rem;}
+button:hover{background:#333;}
+.checkout-btn{width:100%;padding:0.8rem;margin-top:1rem;font-weight:500;}
+.back-link{display:block;margin-bottom:1rem;color:#000;text-decoration:none;font-weight:500;}
+.back-link:hover{text-decoration:underline;}
+.total{font-weight:700;text-align:right;margin-top:1rem;}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="index.html" class="back-link">&larr; Continue Shopping</a>
+  <h1>Your Cart</h1>
+  <div id="cartItems"></div>
+  <p class="total" id="cartTotal"></p>
+  <button class="checkout-btn" onclick="goToCheckout()">Proceed to Checkout</button>
+</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+function saveCart(){ localStorage.setItem('cart', JSON.stringify(cart)); }
+
+function renderCart(){
+  const container = document.getElementById('cartItems');
+  container.innerHTML='';
+  if(cart.length===0){ container.innerHTML='<p>Your cart is empty.</p>'; document.getElementById('cartTotal').innerText=''; return; }
+  let total=0;
+  cart.forEach((item,index)=>{
+    total+=item.price*item.qty;
+    const div=document.createElement('div');
+    div.classList.add('cart-item');
+    div.innerHTML=`<img src="${item.img}" alt="${item.name}">
+      <div class="cart-info">
+        <p><strong>${item.name}</strong></p>
+        <p>Size: <select onchange="updateSize(${index},this.value)">
+          <option ${item.size==='S'?'selected':''}>S</option>
+          <option ${item.size==='M'?'selected':''}>M</option>
+          <option ${item.size==='L'?'selected':''}>L</option>
+          <option ${item.size==='XL'?'selected':''}>XL</option>
+        </select></p>
+        <p>Color: <select onchange="updateColor(${index},this.value)">
+          <option ${item.color==='Black'?'selected':''}>Black</option>
+          <option ${item.color==='White'?'selected':''}>White</option>
+        </select></p>
+        <p>Quantity: <input type="number" min="1" value="${item.qty}" onchange="updateQty(${index},this.value)"></p>
+        <p>Price: R${item.price}</p>
+        <button onclick="removeItem(${index})">Remove</button>
+      </div>`;
+    container.appendChild(div);
+  });
+  document.getElementById('cartTotal').innerText=`Total: R${total}`;
+}
+
+function removeItem(index){ cart.splice(index,1); saveCart(); renderCart(); }
+function updateQty(index,qty){ cart[index].qty=parseInt(qty); saveCart(); renderCart(); }
+function updateSize(index,size){ cart[index].size=size; saveCart(); renderCart(); }
+function updateColor(index,color){ cart[index].color=color; saveCart(); renderCart(); }
+
+function goToCheckout(){ if(cart.length===0){ alert('Your cart is empty!'); return; } window.location.href='checkout.html'; }
+
+renderCart();
+</script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GHOST-X Store</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9f9f9;
+      color: #000;
+    }
+
+    /* HEADER AND LOGO */
+    header.site-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: #fff;
+      color: #000;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid #ddd;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #000;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #555;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      background-image: url('https://i.ibb.co/fV9hfNZn/ab1b2d8a88de4d0db8f20253ce8cd531.webp');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      text-align: center;
+      padding: 180px 20px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+    }
+
+    /* PRODUCTS SECTION */
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 50px 20px;
+      background: #fff;
+    }
+
+    .product {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 20px;
+      width: 300px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .product h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .product p {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .product button {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .product button:hover {
+      background-color: #333;
+    }
+
+    /* ABOUT SECTION */
+    .about {
+      background: linear-gradient(135deg, #0a0a0a, #1c1c1c);
+      color: #fff;
+      padding: 100px 20px;
+      text-align: center;
+      border-top: 1px solid #2a2a2a;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .about h2 {
+      font-size: 2.5rem;
+      letter-spacing: 3px;
+      font-weight: 800;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .about p {
+      max-width: 750px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #ffffff;
+    }
+
+    /* CONTACT SECTION */
+    .contact {
+      background: #fff;
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .contact h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .contact input, .contact textarea {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    .contact button {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+
+    .contact button:hover {
+      background-color: #333;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #000;
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      header.site-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .product {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER WITH LOGO AND NAV -->
+  <header class="site-header">
+    <div class="logo">GHOST-X</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="cart.html">Cart 🛒</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Where Shadows Wear the Crown</h1>
+    <p>Discover the exclusive creations of GHOST-X</p>
+  </section>
+
+  <!-- SHOP -->
+  <section class="products" id="shop">
+    <div class="product">
+      <img src="https://i.ibb.co/5hxg9k35/Whats-App-Image-2025-10-14-at-09-54-11-6d29e8f9.jpg" alt="Cielo Hoodie" />
+      <h3>Cielo Hoodie</h3>
+      <p>R899</p>
+      <button onclick="window.location.href='product-cielo.html'">View Product</button>
+    </div>
+
+    <div class="product">
+      <img src="https://i.ibb.co/DPkCcKVx/Whats-App-Image-2025-10-14-at-11-51-40-27c7e0be.jpg" alt="Aura Vestir Hoodie" />
+      <h3>Aura Vestir Hoodie</h3>
+      <p>R899</p>
+      <button onclick="window.location.href='product-aura.html'">View Product</button>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <h2>About GHOST-X</h2>
+    <p>In the quiet, in the dark, we create. GHOST-X is for those who walk unseen yet leave an unforgettable mark.</p>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <h2>Contact Us</h2>
+    <form onsubmit="event.preventDefault();alert('Thank you for contacting GHOST-X! We will respond soon.');">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="4" placeholder="Your Message"></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 GHOST-X. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>

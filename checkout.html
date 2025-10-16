@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout | GHOST-X</title>
+<style>
+body{margin:0;padding:0;font-family:Arial,sans-serif;background:#f9f9f9;color:#111;}
+.container{max-width:600px;margin:2rem auto;padding:2rem;background:#fff;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+h1{text-align:center;margin-bottom:1rem;}
+label{display:block;margin:0.5rem 0;font-weight:500;}
+input,textarea{width:100%;padding:0.5rem;border-radius:5px;border:1px solid #ccc;margin-bottom:1rem;}
+.cart-summary{margin-top:1rem;margin-bottom:1rem;}
+.cart-item{display:flex;align-items:center;border-bottom:1px solid #eee;padding:0.5rem 0;}
+.cart-item img{width:60px;height:60px;object-fit:cover;border-radius:5px;margin-right:0.5rem;}
+button{background:#000;color:#fff;padding:0.8rem 1rem;border:none;cursor:pointer;width:100%;border-radius:5px;font-weight:500;}
+button:hover{background:#333;}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Checkout</h1>
+
+  <div class="cart-summary" id="cartSummary"></div>
+  <p id="cartTotal"></p>
+
+  <form id="checkoutForm">
+    <label>First Name:
+      <input type="text" id="firstName" required>
+    </label>
+    <label>Last Name:
+      <input type="text" id="lastName" required>
+    </label>
+    <label>Email:
+      <input type="email" id="email" required>
+    </label>
+    <label>Phone:
+      <input type="text" id="phone" required>
+    </label>
+    <label>Address:
+      <input type="text" id="address" required>
+    </label>
+    <label>City:
+      <input type="text" id="city" required>
+    </label>
+    <label>Province:
+      <input type="text" id="province" required>
+    </label>
+    <label>Postal Code:
+      <input type="text" id="postal" required>
+    </label>
+    <label>Notes (optional):
+      <textarea id="notes" rows="3"></textarea>
+    </label>
+    <button type="submit">Confirm Order</button>
+  </form>
+</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+function renderCartSummary(){
+  const container=document.getElementById('cartSummary');
+  container.innerHTML='';
+  let total=0;
+  cart.forEach(item=>{
+    total+=item.price*item.qty;
+    const div=document.createElement('div');
+    div.classList.add('cart-item');
+    div.innerHTML=`
+      <img src="${item.img}" alt="${item.name}">
+      <div>
+        <p><strong>${item.name}</strong></p>
+        <p>Size: ${item.size}, Color: ${item.color}, Qty: ${item.qty} - R${item.price}</p>
+      </div>`;
+    container.appendChild(div);
+  });
+  document.getElementById('cartTotal').innerText=`Total: R${total}`;
+}
+renderCartSummary();
+
+document.getElementById('checkoutForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  localStorage.removeItem('cart'); // clear cart
+  alert('Order placed successfully!');
+  window.location.href='thankyou.html';
+});
+</script>
+</body>
+</html>

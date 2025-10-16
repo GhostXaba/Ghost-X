@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cielo Hoodie | GHOST-X</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;font-family:'Roboto',sans-serif;background:#f9f9f9;color:#111;}
+.container{max-width:600px;margin:2rem auto;padding:2rem;background:#fff;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+h1{text-align:center;font-family:'Oswald',sans-serif;margin-bottom:1rem;}
+img{width:100%;border-radius:8px;margin-bottom:1rem;}
+.thumbnail-container{display:flex;gap:0.5rem;overflow-x:auto;margin-bottom:1rem;}
+.thumbnail-container img{width:80px;height:80px;object-fit:cover;border-radius:5px;cursor:pointer;border:2px solid transparent;}
+.thumbnail-container img.active{border-color:#000;}
+label{display:block;margin:0.5rem 0;font-weight:500;}
+select,input[type="number"]{padding:0.5rem;border-radius:5px;border:1px solid #ccc;width:100%;margin-bottom:1rem;}
+button{background:#000;color:#fff;padding:0.8rem 1.2rem;border:none;cursor:pointer;border-radius:5px;font-weight:500;width:100%;}
+button:hover{background:#333;}
+.back-link{display:block;margin-bottom:1rem;color:#000;text-decoration:none;font-weight:500;}
+.back-link:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="index.html" class="back-link">&larr; Back to Shop</a>
+  <h1>Cielo Hoodie</h1>
+
+  <!-- Main Image -->
+  <img id="mainImage" src="https://i.ibb.co/dwf4h6B5/Cielo.jpg" alt="Cielo Hoodie">
+
+  <!-- Thumbnails -->
+  <div class="thumbnail-container">
+    <img src="https://i.ibb.co/dwf4h6B5/Cielo.jpg" onclick="changeImage(this)" class="active" alt="">
+    <img src="https://i.ibb.co/7DR3ZGG/Whats-App-Image-2025-10-14-at-09-54-10-0801de14.jpg" onclick="changeImage(this)" alt="">
+    <img src="https://i.ibb.co/WpyyfZrH/Whats-App-Image-2025-10-14-at-09-54-10-c579ff38.jpg" onclick="changeImage(this)" alt="">
+    <img src="https://i.ibb.co/5hxg9k35/Whats-App-Image-2025-10-14-at-09-54-11-6d29e8f9.jpg" onclick="changeImage(this)" alt="">
+    <img src="https://i.ibb.co/0VM4qv4W/Whats-App-Image-2025-10-14-at-09-54-11-984ee063.jpg" onclick="changeImage(this)" alt="">
+    <img src="https://i.ibb.co/6JLZLWn7/Whats-App-Image-2025-10-14-at-09-54-12-a7927ad0.jpg" onclick="changeImage(this)" alt="">
+    <img src="https://i.ibb.co/5WhBsmF1/Whats-App-Image-2025-10-14-at-09-54-13-94dc7d15.jpg" onclick="changeImage(this)" alt="">
+    <img src="https://i.ibb.co/KcBCYRCW/Whats-App-Image-2025-10-14-at-09-54-13-a4de2a9d.jpg" onclick="changeImage(this)" alt="">
+  </div>
+
+  <p>Price: R350</p>
+  <p style="font-style:italic;">“Unseen power in every stitch”</p>
+
+  <label>Size:
+    <select id="sizeCielo">
+      <option value="S">S</option>
+      <option value="M" selected>M</option>
+      <option value="L">L</option>
+      <option value="XL">XL</option>
+    </select>
+  </label>
+
+  <label>Color:
+    <select id="colorCielo">
+      <option value="Black">Black</option>
+      <option value="White">White</option>
+    </select>
+  </label>
+
+  <label>Quantity:
+    <input type="number" id="qtyCielo" value="1" min="1">
+  </label>
+
+  <button onclick="addToCartCielo()">Add to Cart</button>
+</div>
+
+<script>
+// Load or initialize cart
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Save cart to localStorage
+function saveCart(){ localStorage.setItem('cart', JSON.stringify(cart)); }
+
+// Update main image when clicking thumbnail
+function changeImage(element){
+  document.getElementById('mainImage').src = element.src;
+  document.querySelectorAll('.thumbnail-container img').forEach(img => img.classList.remove('active'));
+  element.classList.add('active');
+}
+
+// Add Cielo Hoodie to cart
+function addToCartCielo(){
+  const name = "Cielo Hoodie";
+  const price = 350;
+  const img = document.getElementById('mainImage').src;
+  const size = document.getElementById('sizeCielo').value;
+  const color = document.getElementById('colorCielo').value;
+  const qty = parseInt(document.getElementById('qtyCielo').value);
+
+  const existing = cart.find(i => i.name === name && i.size === size && i.color === color);
+  if(existing){ existing.qty += qty; }
+  else { cart.push({name, price, img, size, color, qty}); }
+
+  saveCart();
+  alert(name + " added to cart!");
+  const cartCountElem = document.querySelector('#cartCount');
+  if(cartCountElem){ cartCountElem.textContent = cart.reduce((sum,i)=>sum+i.qty,0); }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aura Vestir Hoodie | GHOST-X</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;font-family:'Roboto',sans-serif;background:#f9f9f9;color:#111;}
+.container{max-width:600px;margin:2rem auto;padding:2rem;background:#fff;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+h1{text-align:center;font-family:'Oswald',sans-serif;margin-bottom:1rem;}
+img{width:100%;border-radius:8px;margin-bottom:1rem;}
+.thumbnail-container{display:flex;gap:0.5rem;overflow-x:auto;margin-bottom:1rem;}
+.thumbnail-container img{width:80px;height:80px;object-fit:cover;border-radius:5px;cursor:pointer;border:2px solid transparent;}
+.thumbnail-container img.active{border-color:#000;}
+label{display:block;margin:0.5rem 0;font-weight:500;}
+select,input[type="number"]{padding:0.5rem;border-radius:5px;border:1px solid #ccc;width:100%;margin-bottom:1rem;}
+button{background:#000;color:#fff;padding:0.8rem 1.2rem;border:none;cursor:pointer;border-radius:5px;font-weight:500;width:100%;}
+button:hover{background:#333;}
+.back-link{display:block;margin-bottom:1rem;color:#000;text-decoration:none;font-weight:500;}
+.back-link:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="index.html" class="back-link">&larr; Back to Shop</a>
+  <h1>Aura Vestir Hoodie</h1>
+  <!-- Main Image -->
+  <img id="mainImage" src="https://i.ibb.co/DPkCcKVx/Whats-App-Image-2025-10-14-at-11-51-40-27c7e0be.jpg" alt="Aura Vestir Hoodie">
+  
+  <!-- Thumbnails -->
+  <div class="thumbnail-container">
+    <img src="https://i.ibb.co/p61G1SW7/Whats-App-Image-2025-10-14-at-11-51-39-2394553f.jpg" onclick="changeImage(this)" alt="">
+    <img src="https://i.ibb.co/WW2KVf7v/Whats-App-Image-2025-10-14-at-11-51-40-7acbe023.jpg" onclick="changeImage(this)" alt="">
+    <img src="https://i.ibb.co/DPkCcKVx/Whats-App-Image-2025-10-14-at-11-51-40-27c7e0be.jpg" onclick="changeImage(this)" alt="">
+    <img src="https://i.ibb.co/ymHjDY3Y/Whats-App-Image-2025-10-14-at-11-51-40-da4d1a65.jpg" onclick="changeImage(this)" alt="">
+    <img src="https://i.ibb.co/dsXMdk7z/Whats-App-Image-2025-10-14-at-11-51-40-ddcd0a6b.jpg" onclick="changeImage(this)" alt="">
+    <img src="https://i.ibb.co/0pMWCnVJ/Whats-App-Image-2025-10-14-at-11-51-41-2268bfe2.jpg" onclick="changeImage(this)" alt="">
+  </div>
+
+  <p>Price: R400</p>
+  <p style="font-style:italic;">“Wear the aura of power”</p>
+
+  <label>Size:
+    <select id="sizeAura">
+      <option value="S">S</option>
+      <option value="M" selected>M</option>
+      <option value="L">L</option>
+      <option value="XL">XL</option>
+    </select>
+  </label>
+
+  <label>Color:
+    <select id="colorAura">
+      <option value="Black">Black</option>
+      <option value="White">White</option>
+    </select>
+  </label>
+
+  <label>Quantity:
+    <input type="number" id="qtyAura" value="1" min="1">
+  </label>
+
+  <button onclick="addToCartAura()">Add to Cart</button>
+</div>
+
+<script>
+// Load or initialize cart
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Save cart to localStorage
+function saveCart(){ localStorage.setItem('cart', JSON.stringify(cart)); }
+
+// Update main image when clicking thumbnail
+function changeImage(element){
+  document.getElementById('mainImage').src = element.src;
+  document.querySelectorAll('.thumbnail-container img').forEach(img => img.classList.remove('active'));
+  element.classList.add('active');
+}
+
+// Add Aura Hoodie to cart
+function addToCartAura(){
+  const name = "Aura Vestir Hoodie";
+  const price = 400;
+  const img = document.getElementById('mainImage').src;
+  const size = document.getElementById('sizeAura').value;
+  const color = document.getElementById('colorAura').value;
+  const qty = parseInt(document.getElementById('qtyAura').value);
+
+  const existing = cart.find(i => i.name === name && i.size === size && i.color === color);
+  if(existing){ existing.qty += qty; }
+  else { cart.push({name, price, img, size, color, qty}); }
+
+  saveCart();
+  alert(name + " added to cart!");
+  // Update cart count in header if exists
+  const cartCountElem = document.querySelector('#cartCount');
+  if(cartCountElem){ cartCountElem.textContent = cart.reduce((sum,i)=>sum+i.qty,0); }
+}
+</script>
+</body>
+</html>
